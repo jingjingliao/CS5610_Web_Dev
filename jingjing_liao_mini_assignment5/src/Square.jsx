@@ -1,4 +1,5 @@
 import "./Square.css";
+import { useDispatch } from "react-redux";
 
 export default function Square(props) {
   const symbol = props.symbol;
@@ -7,17 +8,17 @@ export default function Square(props) {
     backgroundColor = "blackColor";
   }
 
+  const dispatch = useDispatch();
+
   return (
     <div
-      onClick={() => {
-        const { boardState, onClick, x, y } = props;
-        if (symbol === "X") {
-          boardState[x][y] = "O";
-        } else {
-          boardState[x][y] = "X";
-        }
-        onClick([...boardState]);
-      }}
+      onClick={() =>
+        dispatch({
+          type: "boardClick",
+          x: props.x,
+          y: props.y,
+        })
+      }
       id="square"
       class={backgroundColor}
     ></div>
